@@ -41,6 +41,9 @@ const NotificationClient: React.FC<NotificationClientProps> = ({
 
     return () => {
       pusherClient.unsubscribe(currentUser.id);
+      pusherClient.unbind("follow", newHandler);
+      pusherClient.unbind("like", newHandler);
+      pusherClient.unbind("comment", newHandler);
     };
   }, [currentUser.id]);
 
