@@ -8,7 +8,7 @@ const SideBar = async ({ children }: { children: React.ReactNode }) => {
 
   return (
     <div className="h-full">
-      <DesktopSideBar user={currentUser!} />
+      <DesktopSideBar currentUser={currentUser!} />
       <MobileNav />
       <main className="h-full lg:pl-20">{children}</main>
       <MobileFooter user={currentUser!} />

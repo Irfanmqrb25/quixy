@@ -3,21 +3,19 @@
 import { useCallback, useState } from "react";
 import { useRouter } from "next/navigation";
 
-import { Avatar, AvatarImage } from "@/components/ui/avatar";
-import { Card, CardFooter, CardHeader } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { Avatar, AvatarImage } from "@/components/ui/avatar";
+import FollUserModal from "@/components/modal/FollUserModal";
+import { Card, CardFooter, CardHeader } from "@/components/ui/card";
 
-import { UserCheck2, UserPlus2 } from "lucide-react";
 import axios from "axios";
-import { Follow, User } from "@prisma/client";
 import toast from "react-hot-toast";
+import { UserCheck2, UserPlus2 } from "lucide-react";
+import { FullUserType } from "@/types";
 
 interface UserClientPageProps {
-  currentUser: User;
-  user: User & {
-    followers: Follow[];
-    following: Follow[];
-  };
+  currentUser: FullUserType;
+  user: FullUserType;
 }
 
 const UserClientPage: React.FC<UserClientPageProps> = ({
@@ -26,6 +24,8 @@ const UserClientPage: React.FC<UserClientPageProps> = ({
 }) => {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+  const [title, setTitle] = useState("");
 
   const followed = user.followers.some((follower) =>
     follower.followerId === currentUser.id ? true : false
@@ -84,64 +84,87 @@ const UserClientPage: React.FC<UserClientPageProps> = ({
       });
   }, [router, user]);
 
+  const handleFollowersModal = useCallback(() => {
+    setTitle("Followers");
+    setIsOpen(true);
+  }, []);
+
+  const handleFollowingModal = useCallback(() => {
+    setTitle("Following");
+    setIsOpen(true);
+  }, []);
+
   return (
-    <Card>
-      <CardHeader>
-        <div className="flex flex-col gap-2">
-          <div className="flex items-center gap-4">
-            <Avatar className="w-16 h-16">
-              <AvatarImage
-                alt={user?.username! || user?.name!}
-                src={user?.image || "/assets/default-user.jpg"}
-              />
-            </Avatar>
-            <span className="text-xl font-medium">
-              {user?.username || user?.name}
-            </span>
-          </div>
-          <div className="flex flex-col gap-7">
-            <div className="flex pl-20 items-center justify-between">
-              <div className="flex flex-col items-center">
-                <p className="text-sm font-medium">{followers}</p>
-                <p className="text-xs">Followers</p>
-              </div>
-              <div className="flex flex-col items-center">
-                <p className="text-sm font-medium">{user.following.length}</p>
-                <p className="text-xs">Following</p>
-              </div>
-              <div className="flex flex-col items-center">
-                <p className="text-sm font-medium">1</p>
-                <p className="text-xs">Posts</p>
-              </div>
+    <>
+      <FollUserModal
+        isOpen={isOpen}
+        onClose={() => setIsOpen(false)}
+        user={user!}
+        userLoggedIn={currentUser!}
+        title={title}
+      />
+      <Card>
+        <CardHeader>
+          <div className="flex flex-col gap-2">
+            <div className="flex items-center gap-4">
+              <Avatar className="w-16 h-16">
+                <AvatarImage
+                  alt={user?.username! || user?.name!}
+                  src={user?.image || "/assets/default-user.jpg"}
+                />
+              </Avatar>
+              <span className="text-xl font-medium">
+                {user?.username || user?.name}
+              </span>
             </div>
-            <p className="text-sm">
-              {user?.description ? user.description : ""}
-            </p>
+            <div className="flex flex-col gap-7">
+              <div className="flex pl-20 items-center justify-between">
+                <div
+                  className="flex flex-col items-center cursor-pointer"
+                  onClick={handleFollowersModal}
+                >
+                  <p className="text-sm font-medium">{followers}</p>
+                  <p className="text-xs">Followers</p>
+                </div>
+                <div
+                  className="flex flex-col items-center cursor-pointer"
+                  onClick={handleFollowingModal}
+                >
+                  <p className="text-sm font-medium">{user.following.length}</p>
+                  <p className="text-xs">Following</p>
+                </div>
+                <div className="flex flex-col items-center">
+                  <p className="text-sm font-medium">1</p>
+                  <p className="text-xs">Posts</p>
+                </div>
+              </div>
+              <p className="text-sm">
+                {user?.description ? user.description : ""}
+              </p>
+            </div>
           </div>
-        </div>
-      </CardHeader>
-      <CardFooter className="w-full gap-2">
-        <Button
-          size="sm"
-          variant={isFollowed ? "outline" : "default"}
-          className="flex gap-1 text-xs items-center w-full"
-          onClick={isFollowed ? handleUnfollow : HandleFollow}
-        >
-          {isFollowed ? <UserCheck2 size={18} /> : <UserPlus2 size={18} />}
-          <span className="hidden md:block">
-            {isFollowed ? "Following" : "Follow"}
-          </span>
-        </Button>
-        <Button
-          size="sm"
-          variant="outline"
-          className="w-full text-xs"
-          onClick={handleClick}
-        >
-          Send message
-        </Button>
-      </CardFooter>
-    </Card>
+        </CardHeader>
+        <CardFooter className="w-full gap-2">
+          <Button
+            size="sm"
+            variant={isFollowed ? "outline" : "default"}
+            className="flex gap-1 text-xs items-center w-full"
+            onClick={isFollowed ? handleUnfollow : HandleFollow}
+          >
+            {isFollowed ? <UserCheck2 size={18} /> : <UserPlus2 size={18} />}
+            <span>{isFollowed ? "Following" : "Follow"}</span>
+          </Button>
+          <Button
+            size="sm"
+            variant="outline"
+            className="w-full text-xs"
+            onClick={handleClick}
+          >
+            Send message
+          </Button>
+        </CardFooter>
+      </Card>
+    </>
   );
 };
 

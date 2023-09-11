@@ -1,18 +1,13 @@
-import { Avatar, AvatarImage } from "@/components/ui/avatar";
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-} from "@/components/ui/card";
-import { Separator } from "@/components/ui/separator";
-
-import { UserCircle } from "lucide-react";
-import UserPostCard from "@/components/card/UserPostCard";
-import { getUserById } from "@/actions/getUser";
-import UserClientPage from "./client";
-import getCurrentUser from "@/actions/getCurrentUser";
 import { redirect } from "next/navigation";
+
+import UserClientPage from "./client";
+import { Separator } from "@/components/ui/separator";
+import UserPostCard from "@/components/card/UserPostCard";
+
+import { ImageIcon, UserCircle } from "lucide-react";
+
+import { getUserById } from "@/actions/getUser";
+import getCurrentUser from "@/actions/getCurrentUser";
 
 const UserPage = async ({ params }: { params: { userId: string } }) => {
   const currentUser = await getCurrentUser();
@@ -30,11 +25,23 @@ const UserPage = async ({ params }: { params: { userId: string } }) => {
         <UserClientPage currentUser={currentUser!} user={user!} />
       </div>
       <Separator />
-      <div className="grid grid-cols-2 xl:grid-cols-3 gap-2">
-        {user?.posts.map((post) => (
-          <UserPostCard key={post.id} post={post} />
-        ))}
-      </div>
+      {user?.posts.length === 0 ? (
+        <div className="flex flex-col items-center justify-center gap-2 mt-10">
+          <ImageIcon
+            strokeWidth={1}
+            className="w-28 h-28 text-muted-foreground"
+          />
+          <p className="text-xl font-semibold text-muted-foreground">
+            No posts yet
+          </p>
+        </div>
+      ) : (
+        <div className="grid grid-cols-2 xl:grid-cols-3 gap-2">
+          {user?.posts.map((post) => (
+            <UserPostCard key={post.id} post={post} />
+          ))}
+        </div>
+      )}
     </div>
   );
 };

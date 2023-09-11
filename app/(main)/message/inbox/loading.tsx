@@ -1,9 +1,6 @@
-import { AspectRatio } from "@/components/ui/aspect-ratio";
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";
 
-export default function NotificationsLoading() {
+const MessageInboxLoading = () => {
   return (
     <div className="flex flex-col gap-4">
       <Skeleton className="w-full h-10 lg:mt-7" />
@@ -19,4 +16,6 @@ export default function NotificationsLoading() {
       </div>
     </div>
   );
-}
+};
+
+export default MessageInboxLoading;

@@ -22,15 +22,15 @@ export default function UserLoading() {
             <div className="flex pl-20 items-center justify-between">
               <div className="flex flex-col items-center gap-1">
                 <Skeleton className="w-5 h-5" />
-                <Skeleton className="w-20 h-5" />
+                <Skeleton className="w-10 md:w-20 h-5" />
               </div>
               <div className="flex flex-col items-center gap-1">
                 <Skeleton className="w-5 h-5" />
-                <Skeleton className="w-20 h-5" />
+                <Skeleton className="w-10 md:w-20 h-5" />
               </div>
               <div className="flex flex-col items-center gap-1">
                 <Skeleton className="w-5 h-5" />
-                <Skeleton className="w-20 h-5" />
+                <Skeleton className="w-10 md:w-20 h-5" />
               </div>
             </div>
           </div>

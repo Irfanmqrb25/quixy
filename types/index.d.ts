@@ -20,3 +20,10 @@ export type FullMessageType = Message & {
   sender: User;
   seen: User[];
 };
+
+export type FullUserType = User & {
+  posts: Post[];
+  likes: Like[];
+  followers: Follow[];
+  following: Follow[];
+};

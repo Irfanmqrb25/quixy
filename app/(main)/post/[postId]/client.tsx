@@ -212,9 +212,9 @@ const PostPageClient: React.FC<PostPageClientProps> = ({
         </span>
       </div>
       <Dialog open={dialogOpen} onOpenChange={() => setDialogOpen(!dialogOpen)}>
-        <DialogContent>
+        <DialogContent className="w-full h-full md:h-fit flex flex-col">
           <DialogTitle>Comments</DialogTitle>
-          <ScrollArea className="h-[400px]">
+          <ScrollArea className="h-full lg:min-h-[400px] lg:max-h-[450px]">
             <div className="pr-3 space-y-5">
               {data?.map((comment: any) => (
                 <CommentBubble

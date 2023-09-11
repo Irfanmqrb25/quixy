@@ -28,7 +28,7 @@ const MessageBubble: React.FC<MessageBoxProps> = ({ data, isLast }) => {
     .map((user: User) => user.username || user.name)
     .join(", ");
 
-  const container = cn("flex gap-2 p-4", isOwn && "justify-end");
+  const container = cn("flex gap-2 py-4 lg:px-2 px-1", isOwn && "justify-end");
   const avatar = cn(isOwn && "order-2");
   const body = cn("flex flex-col gap-1", isOwn && "items-end");
   const message = cn(

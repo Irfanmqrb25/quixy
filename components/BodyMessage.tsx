@@ -63,7 +63,7 @@ const BodyMessage: React.FC<BodyMessageProps> = ({ initialMessages }) => {
   }, [conversationId]);
 
   return (
-    <Card className="flex-1 mt-4 rounded-md overflow-y-auto message-body-scroll border-2 border-black dark:border-muted-foreground">
+    <div className="flex-1 mt-4 rounded-md overflow-y-auto message-body-scroll lg:border-2 lg:border-black dark:border-muted-foreground">
       {messages.length === 0 ? (
         <div className="flex items-center justify-center py-4">
           Start a conversation
@@ -77,8 +77,8 @@ const BodyMessage: React.FC<BodyMessageProps> = ({ initialMessages }) => {
           />
         ))
       )}
-      <div ref={bottomRef} className="pt-24" />
-    </Card>
+      <div ref={bottomRef} />
+    </div>
   );
 };
 

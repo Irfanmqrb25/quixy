@@ -81,7 +81,8 @@ const ChatItemList: React.FC<ChatItemListProps> = ({ data }) => {
               {data.name || otherUser.username || otherUser.name}
             </p>
             <p className="text-xs font-light text-gray-400">
-              {format(new Date(lastMessage.createdAt), "p")}
+              {lastMessage?.createdAt &&
+                format(new Date(lastMessage.createdAt), "p")}
             </p>
           </div>
           <div className="flex items-center justify-between">

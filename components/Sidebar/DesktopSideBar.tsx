@@ -1,9 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { useCallback } from "react";
+import { useCallback, useMemo } from "react";
 
-import { Avatar, AvatarImage } from "../ui/avatar";
 import ThemeToggle from "../button/ThemeToggle";
 import {
   DropdownMenu,
@@ -30,10 +29,10 @@ import { signOut } from "next-auth/react";
 import AvatarWithStatus from "../Avatar";
 
 interface DesktopSideBarProps {
-  user: User;
+  currentUser: User;
 }
 
-const DesktopSideBar: React.FC<DesktopSideBarProps> = ({ user }) => {
+const DesktopSideBar: React.FC<DesktopSideBarProps> = ({ currentUser }) => {
   const postUploadModal = usePostUploadModal();
 
   const onPostUploadModal = useCallback(() => {
@@ -58,17 +57,22 @@ const DesktopSideBar: React.FC<DesktopSideBarProps> = ({ user }) => {
           href="/"
           className="flex items-center gap-4 hover:bg-gray-400/30 p-2 rounded-sm group transition ease-in-out duration-300"
         >
-          <GoHome className="w-6 h-6 group-hover:scale-105" />
+          <GoHome className="w-7 h-7 group-hover:scale-105" />
           <span>Home</span>
         </Link>
         <Link
           href="/message/inbox"
           className="flex items-center gap-4 hover:bg-gray-400/30 p-2 rounded-sm group transition ease-in-out duration-300"
         >
-          <MessageCircle
-            strokeWidth={1.5}
-            className="w-6 h-6 group-hover:scale-105"
-          />
+          <div className="relative">
+            <MessageCircle
+              strokeWidth={1.5}
+              className="w-7 h-7 group-hover:scale-105"
+            />
+            {/* <span className="absolute top-0 -right-1 w-4 h-4 inline-flex items-center justify-center bg-red-500 rounded-full text-[10px]">
+              0
+            </span> */}
+          </div>
           <span>Message</span>
         </Link>
         <Link
@@ -77,7 +81,7 @@ const DesktopSideBar: React.FC<DesktopSideBarProps> = ({ user }) => {
         >
           <Compass
             strokeWidth={1.5}
-            className="w-6 h-6 group-hover:scale-105"
+            className="w-7 h-7 group-hover:scale-105"
           />
           <span>Explore</span>
         </Link>
@@ -85,14 +89,14 @@ const DesktopSideBar: React.FC<DesktopSideBarProps> = ({ user }) => {
           href="/notifications"
           className="flex items-center gap-4 hover:bg-gray-400/30 p-2 rounded-sm group transition ease-in-out duration-300"
         >
-          <Bell strokeWidth={1.5} className="w-6 h-6 group-hover:scale-105" />
+          <Bell strokeWidth={1.5} className="w-7 h-7 group-hover:scale-105" />
           <span>Notification</span>
         </Link>
         <button
           onClick={onPostUploadModal}
           className="flex items-center gap-4 hover:bg-gray-400/30 p-2 rounded-sm group transition ease-in-out duration-300"
         >
-          <Upload strokeWidth={1.5} className="w-6 h-6 group-hover:scale-105" />
+          <Upload strokeWidth={1.5} className="w-7 h-7 group-hover:scale-105" />
           <span>Upload</span>
         </button>
       </div>
@@ -100,9 +104,9 @@ const DesktopSideBar: React.FC<DesktopSideBarProps> = ({ user }) => {
         <DropdownMenu>
           <DropdownMenuTrigger className="outline-none">
             <div className="flex items-center gap-2">
-              <AvatarWithStatus data={user} className="w-7 h-7" />
+              <AvatarWithStatus data={currentUser} className="w-7 h-7" />
               <span className="font-medium">
-                {user?.username || user?.name}
+                {currentUser?.username || currentUser?.name}
               </span>
             </div>
           </DropdownMenuTrigger>

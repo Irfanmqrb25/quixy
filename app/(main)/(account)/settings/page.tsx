@@ -31,7 +31,9 @@ const SettingsPage = async () => {
           <EditProfileForm user={user!} />
         </CardContent>
       </Card>
-      <SignOutButton />
+      <div className="pb-20 w-full">
+        <SignOutButton />
+      </div>
     </div>
   );
 };
