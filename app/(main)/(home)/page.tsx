@@ -25,7 +25,7 @@ const HomePage = async () => {
   }
 
   return (
-    <div className="flex flex-col gap-4 mb-10">
+    <div className="flex flex-col gap-4 pb-[80px]">
       <div className="lg:mt-7 flex items-center gap- justify-center border border-black dark:border-muted-foreground rounded-md p-1">
         <GoHome className="w-7 h-7" />
         <h1 className="text-xl md:text-2xl font-medium">Home</h1>

@@ -8,7 +8,7 @@ const ChatInboxPage = async () => {
   const chatList = await getConversations();
 
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-4 pb-[80px]">
       <div className="lg:mt-7 flex items-center gap-2 justify-center border border-black dark:border-muted-foreground rounded-md p-1">
         <MessageCircle className="w-7 h-7" strokeWidth={1.5} />
         <h1 className="text-xl md:text-2xl font-medium">Message</h1>
