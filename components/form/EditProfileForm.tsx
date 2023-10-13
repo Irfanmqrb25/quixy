@@ -16,7 +16,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import Image from "next/image";
 import { CldUploadButton } from "next-cloudinary";
 import { Button, buttonVariants } from "../ui/button";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { cn } from "@/lib/utils";
 import { Input } from "../ui/input";
 import { Textarea } from "../ui/textarea";

@@ -14,7 +14,7 @@ const montserrat = Montserrat({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://quixy-app.vercel.app/"),
+  metadataBase: new URL("https://www.quixy.irfanmuqorib.dev"),
   title: "Quixy",
   description:
     "Social media application powered by Next.js 13, Tailwind, Prisma, MongoDB, Pusher and more.",
@@ -44,7 +44,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "id_ID",
-    url: "https://expozone.vercel.app",
+    url: "https://www.quixy.irfanmuqorib.dev",
     title: "Quixy",
     description:
       "Social media application powered by Next.js 13, Tailwind, Prisma, MongoDB, Pusher and more.",
